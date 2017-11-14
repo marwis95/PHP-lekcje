@@ -1,0 +1,15 @@
+<?php
+$liczba1 = $_GET['liczba1'];
+$liczba2 = $_GET['liczba2'];
+
+$wynik1  = $liczba1 + $liczba2;
+$wynik2  = $liczba1 - $liczba2;
+$wynik3  = $liczba1 * $liczba2;
+$wynik4  = $liczba1 / $liczba2;
+
+echo("Wynik dodawania: $wynik1");
+echo("Wynik odejmowania: $wynik2");
+echo("Wynik mnozenia: $wynik3");
+echo("Wynik dzielenia: $wynik4");
+?>
+

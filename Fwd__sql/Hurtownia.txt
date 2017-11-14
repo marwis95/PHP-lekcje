@@ -1,0 +1,31 @@
+create table firmy(
+id int not null,
+nazwa varchar(20),
+kraj varchar(10),
+Primary key(id)
+);
+insert into firmy values(1,'Nestle','Szwajcaria');
+insert into firmy values(2,'Kraft','Niemcy');
+insert into firmy values(3,'MasterFoods','Niemcy');
+insert into firmy values(4,'Wawel','Polska');
+insert into firmy values(5,'Wedel','Polska');
+insert into firmy values(6,'Goplana','Polska');
+create table produkty(
+produkt varchar(10),
+id int,
+cena int,
+sprzedaz int
+);
+insert into produkty values('Milka',1,3,3000);
+insert into produkty values('Chocakipk',1,5,2500);
+insert into produkty values('Ciniminis',1,4,2200);
+insert into produkty values('Ser',2,2,1800);
+insert into produkty values('Jogurt',2,1,1300);
+insert into produkty values('Chipsy',3,5,5000);
+insert into produkty values('Mleczna',4,2,1800);
+insert into produkty values('Goszka',4,2,1800);
+insert into produkty values('Grzesiek',4,1,2000);
+insert into produkty values('Princessa',5,1,3000);
+insert into produkty values('Pawelek',5,2,1600);
+insert into produkty values('Maciek',5,1,2300);
+

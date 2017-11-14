@@ -1,0 +1,124 @@
+Zapoznaj siê z zawartoœci¹ pliku Hurtownia.txt.
+Przygl¹dnij siê kluczom g³ównym poszczególnych tabel.
+Wszystkie odpowiedzi wraz z instrukcjami SQL i zestawem wynikowym
+zapisuj w pliku Hurtownia_odp_Nazwisko_klasa.txt i oddaj go do oceny.
+
+
+0. Zaraz po zalogowaniu do mysql'a za³ó¿ bazê o naziwe Hurtownia_Nazwisko
+ i zaimportuj do niej plik Hurtownia.txt poleceniem source Hurtownia.txt
+
+1. Podaj œredni¹ liczbê sprzedawanych s³odyczy.
+2. Podaj liczbê s³odyczy w ofercie sklepu.
+3. Podaj listê s³odyczy posortowan¹ wg nazwy rosn¹co.
+4. Podaj listê firm pochodz¹cych z krajów, których nazwa koñczy siê na literê a.
+5. Podaj Listê firm nie pochodz¹cych z Polski.
+6. Podaj nazwy s³odyczy, których sprzedaz miesci siê miêdzy 1000, a 2000 sztuk.
+7. Podaj wszystkie informacje z bazy wszystkimi trzema sposobami. 
+   Napisz który sposób jest najlepszy w tej sytuacji i kiedy wykorzystasz pozosta³e.
+8. Zidentyfikuj z której firmy nie zamówiono towaru.
+9. stwórz tabelê o nazwie Klienci.
+   Tabela ma zawieraæ nastêpuj¹ce pola: id_klienta,Imiê, Nazwisko,Adres,Telefon,NIP
+   id_firmy, Nazwa_produktu.
+   Ustaw odpowiedni klucz/klucze g³ówny tabeli.
+10.Do tabeli klienci wprowadz dane 5 wymyœlonych klientów, zwracaj¹c uwagê na fakt
+   by nowo utworzona tabela wspó³dzia³a³a z pozosta³ymi w bazie.
+11. Wykonaj zestawienie podaj¹ce dane o klientach oraz nazwy firm,kraj pochodzenia 
+    i nazwy produktów zakupionych przez Twoich klientów.
+
+1.
+mysql> select avg(sprzedaz) from produkty;
++---------------+
+| avg(sprzedaz) |
++---------------+
+|     2358.3333 |
++---------------+
+
+2.
+mysql> select count(produkt) from produkty;
++----------------+
+| count(produkt) |
++----------------+
+|             12 |
++----------------+
+
+3.
+mysql> select produkt from produkty order by produkt asc;
++-----------+
+| produkt   |
++-----------+
+| Chipsy    |
+| Chocakipk |
+| Ciniminis |
+| Goszka    |
+| Grzesiek  |
+| Jogurt    |
+| Maciek    |
+| Milka     |
+| Mleczna   |
+| Pawelek   |
+| Princessa |
+| Ser       |
++-----------+
+
+
+4.
+mysql> select * from firmy where kraj like '%a';
++----+---------+------------+
+| id | nazwa   | kraj       |
++----+---------+------------+
+|  1 | Nestle  | Szwajcaria |
+|  4 | Wawel   | Polska     |
+|  5 | Wedel   | Polska     |
+|  6 | Goplana | Polska     |
++----+---------+------------+
+
+
+5.
+mysql> select * from firmy where kraj not like 'Polska';
++----+-------------+------------+
+| id | nazwa       | kraj       |
++----+-------------+------------+
+|  1 | Nestle      | Szwajcaria |
+|  2 | Kraft       | Niemcy     |
+|  3 | MasterFoods | Niemcy     |
++----+-------------+------------+
+
+
+6.
+mysql> select * from produkty where (sprzedaz>1000) and (sprzedaz<2000);
++---------+------+------+----------+
+| produkt | id   | cena | sprzedaz |
++---------+------+------+----------+
+| Ser     |    2 |    2 |     1800 |
+| Jogurt  |    2 |    1 |     1300 |
+| Mleczna |    4 |    2 |     1800 |
+| Goszka  |    4 |    2 |     1800 |
+| Pawelek |    5 |    2 |     1600 |
++---------+------+------+----------+
+
+
+
+8.
+mysql> select * from firmy left join produkty on firmy.id=produkty.id where (pro
+dukty.id is null);
++----+---------+--------+---------+------+------+----------+
+| id | nazwa   | kraj   | produkt | id   | cena | sprzedaz |
++----+---------+--------+---------+------+------+----------+
+|  6 | Goplana | Polska | NULL    | NULL | NULL |     NULL |
++----+---------+--------+---------+------+------+----------+
+
+
+9.
+create table klienci(
+id int not null,
+imie varchar(20),
+nazwisko varchar(10),
+telefon int(9),
+nip varchar(20),
+id_firmy varchar(20),
+nazwa_produktu varchar(20),
+Primary key(id)
+);
+
+
+insert into klienci values(1, 'Aaa', '111', 'akiasisa', 123123, 345354, 1, 'adadsasd');
